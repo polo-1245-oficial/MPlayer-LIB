@@ -1,5 +1,5 @@
 # MPlayer-LIB
-A lib for MPlayer player
+A lib for MPlayer music player
 
 ## DOCS:
 TODO, but, just read the code
