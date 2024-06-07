@@ -6,6 +6,7 @@ class MPlayer {
         this.mplayer = null;
         this.rl = null;
         this.file = null;
+        this.currentVolume = 100; // Por defecto, el volumen es 100%
     }
 
     play(file) {
@@ -94,19 +95,26 @@ class MPlayer {
     setVolume(volume) {
         if (this.mplayer) {
             this.mplayer.stdin.write(`volume ${volume} 1\n`);
+            this.currentVolume = volume;
         }
     }
 
     increaseVolume(amount) {
         if (this.mplayer) {
-            this.mplayer.stdin.write(`volume ${amount} 1\n`);
+            const newVolume = Math.min(Math.round(this.currentVolume + (this.currentVolume * amount / 100)), 100);
+            this.setVolume(newVolume);
         }
     }
 
     decreaseVolume(amount) {
         if (this.mplayer) {
-            this.mplayer.stdin.write(`volume -${amount} 1\n`);
+            const newVolume = Math.max(Math.round(this.currentVolume - (this.currentVolume * amount / 100)), 0);
+            this.setVolume(newVolume);
         }
+    }
+
+    getCurrentVolume() {
+        return this.currentVolume;
     }
 }
 
