@@ -6,7 +6,7 @@ class MPlayer {
         this.mplayer = null;
         this.rl = null;
         this.file = null;
-        this.currentVolume = 100; // Por defecto, el volumen es 100%, esta variable puede ser cambiada, dependiendo del gusto, ya que, 100% es potente eh
+        this.currentVolume = 100; 
     }
 
     play(file) {
@@ -115,6 +115,19 @@ class MPlayer {
 
     getCurrentVolume() {
         return this.currentVolume;
+    }
+
+    getTotalTime(callback) {
+        if (this.mplayer) {
+            this.lineHandler = (line) => {
+                if (line.startsWith('ANS_LENGTH')) {
+                    const length = parseFloat(line.split('=')[1]);
+                    callback(length);
+                    this.lineHandler = null;
+                }
+            };
+            this.mplayer.stdin.write('get_time_length\n');
+        }
     }
 }
 
