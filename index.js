@@ -101,14 +101,14 @@ class MPlayer {
 
     increaseVolume(amount) {
         if (this.mplayer) {
-            const newVolume = Math.min(Math.round(this.currentVolume + (this.currentVolume * amount / 100)), 100);
+            const newVolume = this.currentVolume + amount;
             this.setVolume(newVolume);
         }
     }
 
     decreaseVolume(amount) {
         if (this.mplayer) {
-            const newVolume = Math.max(Math.round(this.currentVolume - (this.currentVolume * amount / 100)), 0);
+            const newVolume = this.currentVolume - amount;
             this.setVolume(newVolume);
         }
     }
