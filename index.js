@@ -94,8 +94,9 @@ class MPlayer {
 
     setVolume(volume) {
         if (this.mplayer) {
-            this.mplayer.stdin.write(`volume ${volume} 1\n`);
-            this.currentVolume = volume;
+            const newVolume = Math.min(100, Math.max(0, volume));
+            this.mplayer.stdin.write(`volume ${newVolume} 1\n`);
+            this.currentVolume = newVolume;
         }
     }
 
